@@ -1,0 +1,28 @@
+.search-forms {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .search-forms form {
+      margin-bottom: 20px;
+    }
+
+    .recipe-card {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      
+    }
+
+    .recipe-card .card {
+      flex: 1 1 300px;
+      max-width: 400px;
+      border-radius: 15px;
+    }
+
+    .card img {
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
