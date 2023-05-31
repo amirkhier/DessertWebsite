@@ -1,4 +1,4 @@
-const API_KEY = "b94f6595772241f78bdbef4823028ac2";
+const API_KEY = "b69677ec67294cc6bb16962449619368";
 const searchForm = document.querySelector("form");
 const searchInput = document.querySelector("#ingredients");
 const recipeList = document.querySelector(".recipe-card");
@@ -16,23 +16,27 @@ searchForm.addEventListener("submit", e => {
   const query = searchInput.value.trim().split(",").join("+");
   let url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&query=${query}&type=dessert`;
 
-  if (calorieFilter.value !== "") {
+ if (calorieFilter.value !== "" && sugarFilter.value !== "") {
+    const calorieValue = calorieFilter.value || "";
+    const sugarValue = sugarFilter.value || "";
+    url += `&maxCalories=${calorieValue}&maxSugar=${sugarValue}`;
+  } else if (calorieFilter.value !== "") {
     const calorieValue = calorieFilter.value || "";
     url += `&maxCalories=${calorieValue}`;
-  }
-
-  if (sugarFilter.value !== "") {
+  } else if (sugarFilter.value !== "") {
     const sugarValue = sugarFilter.value || "";
     url += `&maxSugar=${sugarValue}`;
-  }
+  } 
 
   fetch(url)
     .then(response => response.json())
     .then(data => {
       if (data.results.length === 0) {
         recipeList.innerHTML = "<p>No recipes found,"+"We Suggest you to try to type ingridient such as : "+dessertIngredients[randomIndex]+","+dessertIngredients[randomIndex-1]+"."+ "<br> ,Or try to Change the sugar/calories amount</p>";
+       
       } else {
         displayRecipes(data.results);
+        
       }
     })
     .catch(error => {
